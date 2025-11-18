@@ -11,6 +11,7 @@ class WebblocksScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, constraints) {
+          print(constraints.maxHeight);
           if (constraints.maxWidth > 500) {
             return Padding(
               padding: EdgeInsetsGeometry.all(10),
@@ -37,22 +38,41 @@ class WebblocksScreen extends StatelessWidget {
                       height: totalFixed,
                       child: DarkRed(constraints: constraints),
                     ),
-                    SizedBox(height: gap),
+                    SizedBox(height: 0),
                     SizedBox(height: 0, child: DarkGreen(constraints: constraints)),
+                  ],
+                ),
+              );
+            } else if (constraints.maxHeight - totalFixed < 40 && constraints.maxHeight > 30) {
+              double redHeight = 500;
+              double greenHeight = 0;
+              return Padding(
+                padding: EdgeInsets.all(padding),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: redHeight + constraints.maxHeight - totalFixed - 30 ,
+                      child: DarkRed(constraints: constraints),
+                    ),
+                    SizedBox(height: 0),
+                    SizedBox(
+                      height: greenHeight,
+                      child: DarkGreen(constraints: constraints),
+                    ),
                   ],
                 ),
               );
             } else {
               double restHeight = constraints.maxHeight - totalFixed;
               print("rest: $restHeight");
-              double redHeight = restHeight / 4;
-              double greenHeight = restHeight * 3 / 4;
+              double redHeight = restHeight > 0 ? (restHeight / 4) + totalFixed : 470;
+              double greenHeight = restHeight > 0 ? (restHeight * 3 / 4) - 30 : 0;
               return Padding(
                 padding: EdgeInsets.all(padding),
                 child: Column(
                   children: [
                     SizedBox(
-                      height: fixedSize + redHeight,
+                      height: redHeight,
                       child: DarkRed(constraints: constraints),
                     ),
                     SizedBox(height: gap),

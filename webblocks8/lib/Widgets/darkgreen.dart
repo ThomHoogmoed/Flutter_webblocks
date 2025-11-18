@@ -31,11 +31,11 @@ class DarkGreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(child: Container(color: const Color.fromARGB(255, 163, 213, 238))),
-              SizedBox(height: 10),
+              SizedBox(height: constraints.maxHeight>595? 10: 0),
               Expanded(
                 child: Container(color: const Color.fromARGB(255, 0, 82, 150), width: (constraints.maxWidth - 40) / 2),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: constraints.maxHeight>595? 10: 0),
               Expanded(child: Container(color: Colors.purple)),
             ],
           ),
